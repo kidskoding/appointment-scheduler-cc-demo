@@ -110,7 +110,7 @@ Expected outcomes:
 
 # Phase 3 — Agent Tools
 
-## Task 3.1 — Build the check_availability tool
+## Task 3.1 — Build the check_availability tool [DONE]
 
 Create the service that queries Google Calendar for free slots.
 
@@ -130,7 +130,7 @@ Expected outcomes:
 
 ---
 
-## Task 3.2 — Build the create_event tool
+## Task 3.2 — Build the create_event tool [DONE]
 
 Create the service that books a Google Calendar event.
 
@@ -149,7 +149,7 @@ Expected outcomes:
 
 ---
 
-## Task 3.3 — Build the send_invite tool (mocked)
+## Task 3.3 — Build the send_invite tool (mocked) [DONE]
 
 Create a mocked send_invite tool that logs instead of sending real email.
 
