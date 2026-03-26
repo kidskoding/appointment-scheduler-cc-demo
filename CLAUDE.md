@@ -38,3 +38,25 @@ Gmail invites are mocked in this demo — no real email is sent.
 - `rails s` — start server
 - `bundle exec rspec` — run tests
 - `rails db:migrate` — run migrations
+
+## Parallel Subagent Rules
+
+When executing tasks from `docs/TASKS.md`, always analyze dependencies before starting and dispatch independent tasks as parallel subagents.
+
+**Rules:**
+- If 2+ tasks have no shared files and no sequential dependency, dispatch them as parallel Agent tool calls in a single message
+- If a task depends on another (e.g. needs a migration to exist, or a service to be built first), run the dependency first, then parallelize what remains
+- Always pass full context to each subagent: working directory, Ruby version (`RBENV_VERSION=3.3.8`), what already exists, and exactly what to build
+- Each subagent must verify its own work (run tests or a rails runner check) before returning
+
+**Dependency map for this project:**
+- 1.1 → must be first
+- 1.2 → requires 1.1
+- 1.3, 2.1 → can run in parallel after 1.2
+- 2.2 → requires 2.1
+- 3.1, 3.2, 3.3 → fully independent, always run in parallel
+- 3.4 → requires 3.1, 3.2, 3.3
+- 4.1 → requires 3.1, 3.2, 3.3
+- 4.2 → requires 4.1
+- 5.1 → requires 4.1 and 2.1
+- 5.2 → requires 5.1

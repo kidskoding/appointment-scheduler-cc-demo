@@ -10,25 +10,27 @@ Each task should leave the application in a **runnable state**.
 
 # Phase 1 — Rails Foundation
 
-## Task 1.1 — Scaffold the Rails app
+## Task 1.1 — Scaffold the Rails app [DONE]
 
 Create the base Rails application with PostgreSQL and install required gems.
 
 Requirements:
 
 - Run `rails new appointment-agent --database=postgresql --skip-test`
-- Add gems to Gemfile: `anthropic`, `google-apis-calendar_v3`, `dotenv-rails`
+- Add gems to Gemfile: `anthropic`, `google-apis-calendar_v3`, `dotenv-rails`, `rspec-rails`
 - Run `bundle install`
 - Run `rails db:create`
+- Run `rails generate rspec:install`
 
 Expected outcomes:
 
 - `rails s` starts without errors
 - App is accessible at `http://localhost:3000`
+- `spec/` directory exists
 
 ---
 
-## Task 1.2 — Create the Appointment model and migration
+## Task 1.2 — Create the Appointment model and migration [DONE]
 
 Generate the Appointment model with all fields from the spec.
 
@@ -46,9 +48,27 @@ Expected outcomes:
 
 ---
 
+## Task 1.3 — Write and run model tests [DONE]
+
+Write RSpec tests for the Appointment model.
+
+Requirements:
+
+- Create `spec/models/appointment_spec.rb`
+- Test that a new appointment has status `pending` by default
+- Test that all required fields are present on the model
+- Run `bundle exec rspec spec/models/`
+
+Expected outcomes:
+
+- All model tests pass
+- `bundle exec rspec spec/models/` exits with 0 failures
+
+---
+
 # Phase 2 — Basic UI
 
-## Task 2.1 — Wire up routes, controller, and index page
+## Task 2.1 — Wire up routes, controller, and index page [DONE]
 
 Create the appointments controller and a basic homepage with a form.
 
@@ -67,6 +87,24 @@ Expected outcomes:
 - Visiting `http://localhost:3000` renders the form
 - Submitting the form creates an Appointment record and redirects back
 - Past appointments appear below the form
+
+---
+
+## Task 2.2 — Write and run controller tests [DONE]
+
+Write RSpec tests for the appointments controller.
+
+Requirements:
+
+- Create `spec/requests/appointments_spec.rb`
+- Test that `GET /` returns 200
+- Test that `POST /appointments` with a valid request creates an Appointment record with status `pending` and redirects to root
+- Run `bundle exec rspec spec/requests/`
+
+Expected outcomes:
+
+- All controller tests pass
+- `bundle exec rspec spec/requests/` exits with 0 failures
 
 ---
 
@@ -129,6 +167,24 @@ Expected outcomes:
 
 ---
 
+## Task 3.4 — Write and run tool tests
+
+Write RSpec tests for all three tools with mocked API calls.
+
+Requirements:
+
+- Create `spec/services/tools/check_availability_spec.rb` — mock the Google Calendar API, test that free slots are returned as an array
+- Create `spec/services/tools/create_event_spec.rb` — mock the Google Calendar API, test that a successful call returns an event ID
+- Create `spec/services/tools/send_invite_spec.rb` — test that the method returns a success hash and does not raise
+- Run `bundle exec rspec spec/services/tools/`
+
+Expected outcomes:
+
+- All tool tests pass without real API calls
+- `bundle exec rspec spec/services/tools/` exits with 0 failures
+
+---
+
 # Phase 4 — Agent Loop
 
 ## Task 4.1 — Build the scheduling agent
@@ -153,6 +209,26 @@ Expected outcomes:
 
 ---
 
+## Task 4.2 — Write and run agent tests
+
+Write RSpec tests for the scheduling agent with mocked Anthropic API and tool calls.
+
+Requirements:
+
+- Create `spec/services/scheduling_agent_spec.rb`
+- Mock the Anthropic client to return a tool call followed by a final text response
+- Mock all three tool classes to return valid responses
+- Test that the agent returns a confirmation string
+- Test that the agent returns an error message string when a tool fails
+- Run `bundle exec rspec spec/services/scheduling_agent_spec.rb`
+
+Expected outcomes:
+
+- All agent tests pass without real API calls
+- `bundle exec rspec spec/services/scheduling_agent_spec.rb` exits with 0 failures
+
+---
+
 # Phase 5 — Full Integration
 
 ## Task 5.1 — Wire the agent into the controller with live status updates
@@ -173,5 +249,24 @@ Expected outcomes:
 - The appointment record is updated with the result
 - The UI shows the correct status and summary after redirect
 - A calendar event exists on Google Calendar after a successful booking
+
+---
+
+## Task 5.2 — Write and run integration tests
+
+Write RSpec request tests covering the full booking flow with all external calls mocked.
+
+Requirements:
+
+- Update `spec/requests/appointments_spec.rb`
+- Test that `POST /appointments` calls `SchedulingAgent` and updates the record to `status: "scheduled"` on success
+- Test that `POST /appointments` sets `status: "failed"` when the agent raises an error
+- Mock `SchedulingAgent` to avoid real API calls
+- Run `bundle exec rspec`
+
+Expected outcomes:
+
+- Full test suite passes
+- `bundle exec rspec` exits with 0 failures
 
 ---

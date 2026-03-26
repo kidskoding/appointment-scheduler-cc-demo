@@ -1,0 +1,8 @@
+<div style="border: 1px solid #ccc; padding: 12px; margin-bottom: 12px;">
+  <p><strong>Request:</strong> <%= appointment.request %></p>
+  <p><strong>Status:</strong> <%= appointment.status %></p>
+  <p><strong>Scheduled At:</strong> <%= appointment.scheduled_at.present? ? appointment.scheduled_at.strftime("%B %d, %Y %I:%M %p") : "Not yet scheduled" %></p>
+  <% if appointment.summary.present? %>
+    <p><strong>Summary:</strong> <%= appointment.summary %></p>
+  <% end %>
+</div>

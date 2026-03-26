@@ -1,0 +1,27 @@
+<h1>Appointment Scheduler</h1>
+
+<section>
+  <h2>Schedule a New Appointment</h2>
+  <%= form_with url: appointments_path, method: :post do |f| %>
+    <div>
+      <%= f.label :request, "Describe your appointment request:" %>
+      <br>
+      <%= f.text_area :request, rows: 4, cols: 60, placeholder: "e.g. Schedule a 30 min meeting with John next week" %>
+    </div>
+    <br>
+    <%= f.submit "Schedule Appointment" %>
+  <% end %>
+</section>
+
+<hr>
+
+<section>
+  <h2>Past Appointments</h2>
+  <% if @appointments.empty? %>
+    <p>No appointments yet.</p>
+  <% else %>
+    <% @appointments.each do |appointment| %>
+      <%= render partial: "appointment", locals: { appointment: appointment } %>
+    <% end %>
+  <% end %>
+</section>
