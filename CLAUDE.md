@@ -25,11 +25,14 @@ Tools are defined in `app/services/tools/`.
 - Use environment variables for all API keys (never hardcode)
 - Write RSpec tests for all agent logic
 
+## Authentication
+Google Calendar access uses a **service account**. The JSON key file is provided by the workshop instructor.
+Gmail invites are mocked in this demo — no real email is sent.
+
 ## Environment Variables Required
 - ANTHROPIC_API_KEY
-- GOOGLE_CLIENT_ID
-- GOOGLE_CLIENT_SECRET
-- GOOGLE_REFRESH_TOKEN
+- GOOGLE_CREDENTIALS_PATH — path to the service account JSON key file
+- GOOGLE_CALENDAR_ID — the calendar to read/write events on
 
 ## Commands
 - `rails s` — start server

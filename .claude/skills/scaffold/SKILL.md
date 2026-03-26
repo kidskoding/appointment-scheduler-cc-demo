@@ -12,7 +12,7 @@ skip_for: writing the spec (use spec-write), planning tasks (use tasks-write), r
 
 ## Purpose
 
-Implement the project **one task at a time**, following the plan defined in `TASKS.md`. Each task must leave the application in a runnable state before stopping.
+Implement the project **one task at a time**, following the plan defined in `docs/TASKS.md`. Each task must leave the application in a runnable state before stopping.
 
 ---
 
@@ -20,9 +20,9 @@ Implement the project **one task at a time**, following the plan defined in `TAS
 
 Read all three files before writing any code:
 
-1. `SPEC.md` — understand what is being built and why
+1. `docs/SPEC.md` — understand what is being built and why
 2. `CLAUDE.md` — load architecture rules, naming conventions, and constraints
-3. `TASKS.md` — find the next incomplete task
+3. `docs/TASKS.md` — find the next incomplete task
 
 If any of these files are missing, stop and tell the user:
 > "`<file>` is missing. Run `/spec-write`, `/tasks-write`, or `/claudemd-setup` first."
@@ -31,7 +31,7 @@ If any of these files are missing, stop and tell the user:
 
 ## Step 2: Identify the Current Task
 
-Scan `TASKS.md` top-to-bottom and find the **first task with no `[DONE]` marker**.
+Scan `docs/TASKS.md` top-to-bottom and find the **first task with no `[DONE]` marker**.
 
 Report to the user:
 ```
@@ -93,7 +93,7 @@ If the task requires installing dependencies, run the appropriate command for th
 After implementing, verify the task is complete per its expected outcomes:
 
 - Run the app or relevant tests to confirm nothing is broken
-- Check that the specific outcomes listed in `TASKS.md` for this task are met
+- Check that the specific outcomes listed in `docs/TASKS.md` for this task are met
 - Fix any errors before reporting done — do not stop on a broken state
 
 ---
@@ -127,7 +127,7 @@ Ready to continue? Say "continue" or "/build" to implement the next task.
 ## Quality Rules
 
 **ALWAYS:**
-- Read `SPEC.md`, `CLAUDE.md`, and `TASKS.md` before writing a single line of code
+- Read `docs/SPEC.md`, `CLAUDE.md`, and `docs/TASKS.md` before writing a single line of code
 - Present an implementation plan before coding
 - Implement only the current task — nothing more
 - Leave the application in a runnable state when done

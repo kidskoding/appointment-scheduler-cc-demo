@@ -3,7 +3,7 @@ description: Builds the full appointment scheduling Rails app using parallel sub
 allowed-tools: Read, Bash, Task
 ---
 
-Read SPEC.md and CLAUDE.md first.
+Read docs/SPEC.md and CLAUDE.md first.
 
 Then kick off all four subagents in parallel using the Task tool:
 
